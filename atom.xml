@@ -6,7 +6,7 @@
   <link href="http://supertai.xyz/atom.xml" rel="self"/>
   
   <link href="http://supertai.xyz/"/>
-  <updated>2022-08-29T11:54:42.637Z</updated>
+  <updated>2022-08-30T11:02:36.077Z</updated>
   <id>http://supertai.xyz/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mybits第二天笔记</title>
+    <link href="http://supertai.xyz/2022/08/30/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%BC%94%E7%A4%BA/mybits%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/"/>
+    <id>http://supertai.xyz/2022/08/30/%E4%BB%A3%E7%A0%81%E5%9D%97%E6%BC%94%E7%A4%BA/mybits%E5%A4%9A%E8%A1%A8%E6%9F%A5%E8%AF%A2/</id>
+    <published>2022-08-30T10:43:53.320Z</published>
+    <updated>2022-08-30T11:02:36.077Z</updated>
+    
+    <content type="html"><![CDATA[<p>在之前所进行的查询之中可以发现 FROM 子句之中只会存在有一张数据表，所以之前都只是针对于单表查询操作， 而所谓的多表查询指的是同时从多张数据表之中取出数据实现的查询，重点修改的是 FROM 子句</p><h2 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--当属性名和字段名不一致的时候需要配置，如果属性名和字段名保持一致则不需要配置resultMap--&gt;</span><br><span class="line">    &lt;resultMap <span class="built_in">id</span>=<span class="string">&quot;findUser&quot;</span> <span class="built_in">type</span>=<span class="string">&quot;User&quot;</span>&gt;</span><br><span class="line">        &lt;<span class="built_in">id</span> column=<span class="string">&quot;id&quot;</span> property=<span class="string">&quot;id&quot;</span>&gt;&lt;/id&gt;</span><br><span class="line">        &lt;result column=<span class="string">&quot;user_name&quot;</span> property=<span class="string">&quot;userName&quot;</span>&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=<span class="string">&quot;user_age&quot;</span> property=<span class="string">&quot;userAge&quot;</span>&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=<span class="string">&quot;user_sex&quot;</span> property=<span class="string">&quot;userSex&quot;</span>&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=<span class="string">&quot;user_tel&quot;</span> property=<span class="string">&quot;userTel&quot;</span>&gt;&lt;/result&gt;</span><br><span class="line">        &lt;result column=<span class="string">&quot;user_pwd&quot;</span> property=<span class="string">&quot;userPwd&quot;</span>&gt;&lt;/result&gt;</span><br><span class="line">        &lt;!--配置一对一的级联操作--&gt;</span><br><span class="line">        &lt;!--property:次类属性，javaType：该属性所对应的类型--&gt;</span><br><span class="line">        &lt;association property=<span class="string">&quot;idCard&quot;</span> javaType=<span class="string">&quot;IdCard&quot;</span>&gt;</span><br><span class="line">            &lt;<span class="built_in">id</span> column=<span class="string">&quot;id&quot;</span> property=<span class="string">&quot;id&quot;</span>&gt;&lt;/id&gt;</span><br><span class="line">            &lt;result column=<span class="string">&quot;card_name&quot;</span> property=<span class="string">&quot;cardName&quot;</span>&gt;&lt;/result&gt;</span><br><span class="line">            &lt;result column=<span class="string">&quot;card_address&quot;</span> property=<span class="string">&quot;cardAddress&quot;</span>&gt;&lt;/result&gt;</span><br><span class="line">            &lt;result column=<span class="string">&quot;card_num&quot;</span> property=<span class="string">&quot;cardNum&quot;</span>&gt;&lt;/result&gt;</span><br><span class="line">        &lt;/association&gt;</span><br><span class="line">    &lt;/resultMap&gt;</span><br></pre></td></tr></table></figure><h2 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap id=&quot;findUser2&quot; type=&quot;User&quot;&gt;</span><br><span class="line">       &lt;id column=&quot;user_id&quot; property=&quot;id&quot;&gt;&lt;/id&gt;</span><br><span class="line">       &lt;result column=&quot;user_name&quot; property=&quot;userName&quot;&gt;&lt;/result&gt;</span><br><span class="line">       &lt;result column=&quot;user_age&quot; property=&quot;userAge&quot;&gt;&lt;/result&gt;</span><br><span class="line">       &lt;result column=&quot;user_sex&quot; property=&quot;userSex&quot;&gt;&lt;/result&gt;</span><br><span class="line">       &lt;result column=&quot;user_tel&quot; property=&quot;userTel&quot;&gt;&lt;/result&gt;</span><br><span class="line">       &lt;result column=&quot;user_pwd&quot; property=&quot;userPwd&quot;&gt;&lt;/result&gt;</span><br><span class="line">       &lt;!--配置一对多的级联操作--&gt;</span><br><span class="line">       &lt;!--property:次类属性，ofType：该属性所对应的类型--&gt;</span><br><span class="line">       &lt;collection property=&quot;orders&quot; ofType=&quot;Order&quot;&gt;</span><br><span class="line">           &lt;!--column：sql语句执行完成后的字段名--&gt;</span><br><span class="line">           &lt;id column=&quot;order_id&quot; property=&quot;id&quot;&gt;&lt;/id&gt;</span><br><span class="line">           &lt;result column=&quot;order_name&quot; property=&quot;orderName&quot;&gt;&lt;/result&gt;</span><br><span class="line">           &lt;result column=&quot;order_price&quot; property=&quot;orderPrice&quot;&gt;&lt;/result&gt;</span><br><span class="line">           &lt;result column=&quot;order_time&quot; property=&quot;orderTime&quot;&gt;&lt;/result&gt;</span><br><span class="line">       &lt;/collection&gt;</span><br><span class="line">   &lt;/resultMap&gt;</span><br></pre></td></tr></table></figure><h2 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;resultMap id=&quot;findUser1&quot; type=&quot;User&quot;&gt;</span><br><span class="line">       &lt;result column=&quot;user_name&quot; property=&quot;userName&quot;&gt;&lt;/result&gt;</span><br><span class="line">   &lt;/resultMap&gt;</span><br><span class="line">   &lt;!--User queryUserById(Integer id);--&gt;</span><br><span class="line">   &lt;!--接口方式访问，id值为对应接口中的方法名--&gt;</span><br><span class="line">   &lt;!--resultType=&quot;com.hqyj.gyq.entity.User&quot; 当表中的字段名和实体类的属性名相同则可以自动映射上，如果不同就不适用，使用resultMap--&gt;</span><br><span class="line">   &lt;select id=&quot;selectUserById&quot;  resultMap=&quot;findUser&quot;&gt;</span><br><span class="line">       select * from user where user_id = #&#123;id&#125;</span><br><span class="line">   &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">   &lt;select id=&quot;selectUserById1&quot;  resultMap=&quot;findUser&quot;&gt;</span><br><span class="line">       select * from user u,idCard i where u.user_id = #&#123;id&#125; and i.id = u.card_id</span><br><span class="line">   &lt;/select&gt;</span><br><span class="line"></span><br><span class="line">   &lt;!--如果是多表联查，注意：表中的字段名相同了，最好建表时候进行区分，或者在sql语句中取别名区分--&gt;</span><br><span class="line">   &lt;select id=&quot;selectUserById2&quot;   resultMap=&quot;findUser2&quot;&gt;</span><br><span class="line">           SELECT*,o.id order_id FROM user u,t_order o  where u.user_id = #&#123;id&#125; and u.user_id=o.user_id</span><br><span class="line">   &lt;/select&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>多表查询首先要分清楚主次关系。我们首先要查询什么然后在次查询里编写我们的sql语句进行联表查询。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在之前所进行的查询之中可以发现 FROM 子句之中只会存在有一张数据表，所以之前都只是针对于单表查询操作， 而所谓的多表查询指的是同时从多张数据表之中取出数据实现的查询，重点修改的是 FROM 子句&lt;/p&gt;
+&lt;h2 id=&quot;一对一&quot;&gt;&lt;a href=&quot;#一对一&quot; class</summary>
+      
+    
+    
+    
+    <category term="mybits" scheme="http://supertai.xyz/categories/mybits/"/>
+    
+    
+    <category term="总结" scheme="http://supertai.xyz/tags/%E6%80%BB%E7%BB%93/"/>
+    
+    <category term="mybits总结" scheme="http://supertai.xyz/tags/mybits%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
   
   <entry>
     <title>mybits第一天笔记</title>
@@ -86,42 +113,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>我的第一篇文章</title>
-    <link href="http://supertai.xyz/2022/08/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/"/>
-    <id>http://supertai.xyz/2022/08/16/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/</id>
-    <published>2022-08-16T07:35:45.000Z</published>
-    <updated>2022-08-29T11:28:50.739Z</updated>
-    
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>文章名称</title>
-    <link href="http://supertai.xyz/2022/08/15/%E6%96%B0%E5%BB%BA%20%E6%96%87%E6%9C%AC%E6%96%87%E6%A1%A3/"/>
-    <id>http://supertai.xyz/2022/08/15/%E6%96%B0%E5%BB%BA%20%E6%96%87%E6%9C%AC%E6%96%87%E6%A1%A3/</id>
-    <published>2022-08-15T11:18:54.284Z</published>
-    <updated>2022-08-15T11:19:00.690Z</updated>
-    
-    <content type="html"><![CDATA[<p>这里是摘要</p><span id="more"></span><p>这里是正文</p><p>注意：description 和 <!-- more --> 方式显示摘要二选一即可，部分主题不支持description，每个配置英文冒号后面要空一格，不同主题配置有所差异，具体要参考主题文档</p>]]></content>
-    
-    
-    <summary type="html">文章描述，即要在首页显示的摘要（仅部分主题支持）</summary>
-    
-    
-    
-    <category term="文章分类" scheme="http://supertai.xyz/categories/%E6%96%87%E7%AB%A0%E5%88%86%E7%B1%BB/"/>
-    
-    
-    <category term="文章标签一" scheme="http://supertai.xyz/tags/%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE%E4%B8%80/"/>
-    
-    <category term="文章标签二" scheme="http://supertai.xyz/tags/%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE%E4%BA%8C/"/>
     
   </entry>
   
